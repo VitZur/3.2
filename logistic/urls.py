@@ -1,9 +1,12 @@
-from rest_framework.routers import DefaultRouter
 
-from .views import ProductViewSet, StockViewSet
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import ProductViewSet, StockViewSet  # импортируйте ваши вьюсеты
 
 router = DefaultRouter()
-router.register('products', ProductViewSet)
-router.register('stocks', StockViewSet)
+router.register(r'products', ProductViewSet, basename='product')
+router.register(r'stocks', StockViewSet, basename='stock')
 
-urlpatterns = router.urls
+urlpatterns = [
+    path('', include(router.urls)),
+]
